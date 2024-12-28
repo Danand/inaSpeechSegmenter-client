@@ -1,0 +1,2 @@
+include *.py *.cfg LICENSE *.md requirements.txt
+include-recursive inaSpeechSegmenter_client/*.py
