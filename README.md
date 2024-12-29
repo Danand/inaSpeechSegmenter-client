@@ -15,6 +15,71 @@ For more information about the original `inaSpeechSegmenter`, visit the [`inaSpe
 - **Tool Integration**: Available as a Python package and Docker image.
 - **Open Source Recognition**: Achieved top ranks in VAD challenges and used in gender representation studies.
 
+## Installing
+
+```bash
+pip install inaSpeechSegmenter-client
+```
+
+## Usage
+
+```python
+# Import:
+
+from inaSpeechSegmenter_client.segmenter_client import SegmenterClient
+
+# Create client instance:
+
+segmenter_client = SegmenterClient(
+    api_url="http://127.0.0.1:8888", # Your API url here.
+)
+
+# Let's say you have loaded audio file:
+
+audio_file_name: str = audio_file.name
+audio_bytes: bytes = audio_file.getbuffer()
+
+try:
+    response_data = segmenter_client.get_segments(
+        audio_file_name=audio_file_name,
+        audio_bytes=audio_bytes,
+    )
+
+    response_json = response_data.model_dump_json()
+
+    # Example output:
+    #
+    # {
+    #   "segments": [
+    #     {
+    #       "end_time": 1.86,
+    #       "label": "noise",
+    #       "start_time": 0
+    #     },
+    #     {
+    #       "end_time": 2.3000000000000003,
+    #       "label": "noEnergy",
+    #       "start_time": 1.86
+    #     },
+    #     {
+    #       "end_time": 5.26,
+    #       "label": "noise",
+    #       "start_time": 2.3000000000000003
+    #     },
+    #     {
+    #       "end_time": 8.14,
+    #       "label": "female",
+    #       "start_time": 5.26
+    #     }
+    #   ]
+    # }
+
+    print(response_json)
+except Exception as exception:
+    # Log error if needed:
+    logger.error(exception)
+```
+
 ## Citing
 
 `inaSpeechSegmenter` has been presented at the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2018 conference in Calgary, Canada. If you use this toolbox in your research, you can cite the following work in your publications:

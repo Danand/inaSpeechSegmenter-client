@@ -26,7 +26,7 @@ class SegmenterClient:
             audio_bytes_base64=audio_base64_str,
         )
 
-        endpoint_url = f"{self.api_url}/{GetSegmentsRequest.get_endpoint()}"
+        endpoint_url = f"{self.api_url}{GetSegmentsRequest.get_endpoint()}"
 
         response = requests.post(
             url=endpoint_url,
